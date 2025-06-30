@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Numbers Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .orange {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="addRandomNumber()">Добавить число</button>
+    <div id="tableContainer"></div>
+
+    <script>
+        // Создаем массив из 30 случайных чисел от 0 до 99
+        let numbers = Array.from({length: 30}, () => Math.floor(Math.random() * 100));
+
+        // Функция для создания таблицы
+        function createTable() {
+            let tableHTML = '<table>';
+            for (let i = 0; i < 5; i++) {
+                tableHTML += '<tr>';
+                for (let j = 0; j < 6; j++) {
+                    const index = i * 6 + j;
+                    const num = numbers[index];
+                    const cellClass = num >= 50 ? 'orange' : '';
+                    tableHTML += <td class="${cellClass}">${num}</td>;
+                }
+                tableHTML += '</tr>';
+            }
+            tableHTML += '</table>';
+            document.getElementById('tableContainer').innerHTML = tableHTML;
+        }
+
+        // Функция для добавления случайного числа в массив и обновления таблицы
+        function addRandomNumber() {
+            const newNumber = Math.floor(Math.random() * 100);
+            numbers.push(newNumber);
+            createTable(); // Пересоздаем таблицу с новым числом
+        }
+
+        // Создаем таблицу при загрузке страницы
+        window.onload = createTable;
+    </script>
+</body>
+</html>
